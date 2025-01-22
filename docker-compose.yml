@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: applibros
+    build: .
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mymongodb
+
+  mymongodb:
+    container_name: mymongodatabase
+    image: mongo
+    ports:
+      - "27018:27017"
+    restart: unless-stopped
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  mongodb-data:
